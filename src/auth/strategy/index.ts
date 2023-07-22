@@ -1,1 +1,1 @@
-export * from 'src/auth/strategy/jwt.strategy';
+export * from './jwt.strategy';

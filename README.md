@@ -16,7 +16,12 @@
 - `npx prisma init` -> to initialize prisma
 - `npx prisma migrate dev` -> runs prisma migrations
 - `npx prisma studio` -> runs prisma studio (allows to see the database)
+- `npx dotenv -e .env.test prisma studio` -> runs prisma studio with specific env variables
 
 ## Credits
 
 This code was created following https://www.youtube.com/watch?v=GHTA143_b-s
+
+## Things to improve
+- delete user.hash
+- relative imports don't work in tests
