@@ -5,11 +5,11 @@ export class EditUserDto {
   @IsOptional()
   email?: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   firstName?: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   lastName?: string;
 }
