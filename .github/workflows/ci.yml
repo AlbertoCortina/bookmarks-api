@@ -2,7 +2,7 @@ name: Continuous Integration
 
 on:
   push:
-  pull_request:
+  pull_request_target:
 
 permissions:
   pull-requests: write
@@ -30,7 +30,8 @@ jobs:
     name: 'Dependabot 🤖'
     needs: [test]
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     steps:
       - name: Dependabot metadata
         id: metadata
@@ -38,8 +39,11 @@ jobs:
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --merge "$PR_URL"
+      - name: Approve and merge
+        run: |
+          gh pr edit "$PR_URL" --add-label "auto-merged"
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
