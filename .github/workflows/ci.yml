@@ -13,7 +13,7 @@ jobs:
     name: 'Test 🧪'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set the correct Node version using nvm
       shell: bash -l {0}
